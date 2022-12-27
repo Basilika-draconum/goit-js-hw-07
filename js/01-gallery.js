@@ -1,15 +1,16 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
-const galleryList = document.querySelector('.gallery');
-galleryList.addEventListener('click', onClickImage);
+const galleryList = document.querySelector(".gallery");
+galleryList.addEventListener("click", onClickImage);
 
 const createMarkUp = createImageMarkup(galleryItems);
-galleryList.insertAdjacentHTML('beforeend', createMarkUp);
+galleryList.insertAdjacentHTML("beforeend", createMarkUp);
 
-function createImageMarkup(images){
-    return images.map(({ original, preview, description }) => {
-        return `<div class="gallery__item">
+function createImageMarkup(images) {
+  return images
+    .map(({ original, preview, description }) => {
+      return `<div class="gallery__item">
         <a class="gallery__link" href="${original}">
         <img
          class="gallery__image"
@@ -20,28 +21,29 @@ function createImageMarkup(images){
         </a>
         </div>`;
     })
-    .join('');
+    .join("");
 }
 function onClickImage(e) {
-    e.preventDefault();
-    if (!e.target.classList.contains('gallery__image')) {
-        return;
-    }
-    let modalImageSrc = e.target.dataset.source;
-    const modalBox = basicLightbox.create(`<img src="${modalImageSrc}" width="800" height="600">`);
-    modalBox.show();
-    function onKeyPressEsc(e) {
+  e.preventDefault();
+  if (!e.target.classList.contains("gallery__image")) {
+    return;
+  }
+  let modalImageSrc = e.target.dataset.source;
+  const modalBox = basicLightbox.create(
+    `<img src="${modalImageSrc}" width="800" height="600">`
+  );
+  modalBox.show();
+  function onKeyPressEsc(e) {
     if (e.code === "Escape") {
-        modalBox.close();
-        window.removeEventListener("keydown", onKeyPressEsc);
+      modalBox.close();
+      window.removeEventListener("keydown", onKeyPressEsc);
     }
-    }
-    if (modalBox.visible()) {
-        window.addEventListener("keydown", onKeyPressEsc);
-    }
-    // console.log(e.target);
+  }
+  if (modalBox.visible()) {
+    window.addEventListener("keydown", onKeyPressEsc);
+  }
+  // console.log(e.target);
 }
-
 
 // NB ===== Не такий продуктивний, бо часто звертаємося до insert.... краще не використовувати =====
 // galleryItems.forEach((image) => {
