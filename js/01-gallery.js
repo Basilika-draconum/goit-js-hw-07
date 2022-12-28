@@ -30,7 +30,12 @@ function onClickImage(e) {
   }
   let modalImageSrc = e.target.dataset.source;
   const modalBox = basicLightbox.create(
-    `<img src="${modalImageSrc}" width="800" height="600">`
+    `<img src="${modalImageSrc}" width="800" height="600">`,
+    {
+      onClose: () => {
+        window.removeEventListener("keydown", onKeyPressEsc);
+      },
+    }
   );
   modalBox.show();
   function onKeyPressEsc(e) {
